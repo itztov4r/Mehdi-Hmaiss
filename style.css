@@ -2247,3 +2247,15 @@ body.dark .project-card { background:var(--surface); }
 @media (prefers-reduced-motion:reduce) {
  .about-card-visual img,.site-header .nav-cta::before,.hero-highlights span,.project-card {transition:none!important;animation:none!important;}
 }
+
+/* CIEL project collection */
+.ciel-project .ciel-preview{position:relative;display:block;overflow:hidden;background:#122d41;aspect-ratio:1000/560;border-bottom:1px solid #ffffff12}
+.ciel-preview img{display:block;width:100%;height:auto;transition:transform .25s ease}
+.ciel-preview>span{position:absolute;bottom:16px;right:18px;background:#eefaf7;color:#193d36;border:1px solid #c4e5d8;padding:9px 12px;border-radius:7px;font-size:10px;font-weight:700;box-shadow:0 4px 16px #0003}
+.ciel-preview:hover img{transform:scale(1.025)}
+.ciel-preview:focus-visible{outline:4px solid #8ce0c2;outline-offset:-4px}
+.ciel-project .project-info{display:flex;flex-direction:column;flex:1}
+.ciel-project .project-actions{margin-top:auto;flex-wrap:wrap;padding-top:20px}
+.ciel-project .ciel-project-note{font-size:10px;line-height:1.7;opacity:.7;margin:16px 0 0}
+.project-filters{flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){.ciel-preview img{transition:none}.ciel-preview:hover img{transform:none}}
