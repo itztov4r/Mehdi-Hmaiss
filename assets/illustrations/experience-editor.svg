@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 750" width="1400" height="750">
+ <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071329"/><stop offset="1" stop-color="#123b66"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#50d0b2" stop-opacity=".35"/><stop offset="1" stop-color="#50d0b2" stop-opacity="0"/></radialGradient>
+ <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#a1d6ff" stroke-opacity=".07" stroke-width="1"/></pattern></defs>
+ <rect width="1400" height="750" fill="url(#bg)"/><rect width="1400" height="750" fill="url(#grid)"/>
+ <circle cx="1020" cy="270" r="390" fill="url(#glow)"/>
+ <g transform="translate(470 85) rotate(-6 465 265)">
+  <rect x="40" y="70" width="870" height="510" rx="30" fill="#041122" stroke="#6bb8ff" stroke-opacity=".30" stroke-width="4"/>
+  <rect x="40" y="70" width="870" height="62" rx="30" fill="#1b375d"/>
+  <path d="M40 118H910" stroke="#70bfff" stroke-opacity=".3" stroke-width="2"/>
+  <circle cx="86" cy="100" r="10" fill="#fb6c75"/><circle cx="119" cy="100" r="10" fill="#ffd075"/><circle cx="152" cy="100" r="10" fill="#5ecb9e"/>
+  <rect x="75" y="162" width="155" height="24" rx="8" fill="#43d9ff" fill-opacity=".45"/>
+  <rect x="75" y="211" width="106" height="13" rx="6" fill="#74b7ff" fill-opacity=".28"/>
+  <rect x="75" y="248" width="130" height="13" rx="6" fill="#74b7ff" fill-opacity=".21"/>
+  <rect x="75" y="285" width="110" height="13" rx="6" fill="#74b7ff" fill-opacity=".22"/>
+  <path d="M252 162V541" stroke="#9eccff" stroke-opacity=".12" stroke-width="3"/>
+  <g stroke-linecap="round" stroke-width="13" opacity=".87">
+  <path d="M300 176H565" stroke="#50d0b2"/><path d="M330 220H785" stroke="#94d6ff" stroke-opacity=".74"/>
+  <path d="M330 264H610" stroke="#f0bfc1" stroke-opacity=".75"/><path d="M365 308H750" stroke="#b5ceff" stroke-opacity=".6"/>
+  <path d="M300 350H455" stroke="#50d0b2" stroke-opacity=".84"/><path d="M330 396H730" stroke="#94d6ff" stroke-opacity=".55"/>
+  <path d="M330 444H610" stroke="#a0f1d0" stroke-opacity=".57"/><path d="M365 488H765" stroke="#85bbff" stroke-opacity=".52"/></g>
+  </g>
+ <g opacity=".6"><circle cx="108" cy="115" r="38" fill="none" stroke="#50d0b2" stroke-width="3"/><path d="M90 115H127 M108 96V134" stroke="#50d0b2" stroke-width="3"/></g>
+ <text x="75" y="603" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="7" fill="#a1c8ee">EXPÉRIENCE 2025</text>
+ <text x="70" y="674" font-family="Arial,sans-serif" font-size="58" font-weight="800" fill="#ffffff">SITE VITRINE</text>
+ </svg>
