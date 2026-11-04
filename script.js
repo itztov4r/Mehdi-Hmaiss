@@ -27,18 +27,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Intro animation: can be skipped and replayed (without reloading the page).
     function endIntro() {
         if (introTimer) window.clearTimeout(introTimer);
+        const introHadFocus = intro?.contains(document.activeElement);
         if (intro) {
+            intro.inert = true;
             intro.classList.add('hidden');
             intro.setAttribute('aria-hidden', 'true');
         }
         body.classList.remove('loading');
+        if (introHadFocus) (replayIntro || document.querySelector('main a'))?.focus();
         try { sessionStorage.setItem('mh-intro-seen','1'); } catch (_) { /* no storage */ }
     }
 
     function playIntro() {
         if (!intro) return;
         if (introTimer) window.clearTimeout(introTimer);
+        intro.inert = false;
         intro.classList.remove('hidden');
+        skipIntro?.focus();
         intro.removeAttribute('aria-hidden');
         body.classList.add('loading');
         const bar = intro.querySelector('.intro-progress span');
@@ -186,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // A backend/email service is required to send messages directly from a web page.
     if (contactForm) {
         contactForm.querySelectorAll('input, textarea, select').forEach(field => {
-            field.addEventListener('input', () => field.classList.remove('invalid'));
+            field.addEventListener('input', () => {field.classList.remove('invalid');field.setCustomValidity('');});
             field.addEventListener('change', () => field.classList.remove('invalid'));
         });
         contactForm.addEventListener('submit', event => {
@@ -195,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const fields = [...contactForm.querySelectorAll('input, textarea, select')];
             let firstInvalid = null;
             fields.forEach(field => {
+                field.setCustomValidity(field.required && !field.value.trim() ? 'Ce champ est obligatoire.' : '');
                 if (!field.checkValidity()) {
                     field.classList.add('invalid');
                     if (!firstInvalid) firstInvalid = field;
@@ -247,3 +253,4 @@ document.querySelectorAll('img.remote-photo').forEach(image => {
         }
     });
 });
+
