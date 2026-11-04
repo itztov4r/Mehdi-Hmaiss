@@ -2259,3 +2259,31 @@ body.dark .project-card { background:var(--surface); }
 .ciel-project .ciel-project-note{font-size:10px;line-height:1.7;opacity:.7;margin:16px 0 0}
 .project-filters{flex-wrap:wrap}
 @media(prefers-reduced-motion:reduce){.ciel-preview img{transition:none}.ciel-preview:hover img{transform:none}}
+
+
+/* Hero photo framing: keep its built-in right-side information panel visible. */
+/* The source workspace.jpg has its Bac Pro / Chemillé / Développeur Web
+   information on the right. Centered object-fit:cover used to cut it off. */
+.hero-visual .workspace {
+  object-position: 89% center;
+}
+.hero-visual .floating-main {
+  right: auto;
+  left: 16px;
+  bottom: 52px;
+  max-width: calc(100% - 32px);
+}
+.hero-visual .floating-mini {
+  left: 16px;
+  top: 16px;
+}
+@media (max-width: 760px) {
+  .hero-visual .workspace { object-position: 93% center; }
+  .hero-visual .floating-main {
+    right: auto;
+    left: 9px;
+    bottom: 42px;
+    max-width: calc(100% - 18px);
+  }
+  .hero-visual .floating-mini { left: 10px; top: 10px; }
+}
