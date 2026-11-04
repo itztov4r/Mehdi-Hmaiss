@@ -2287,3 +2287,69 @@ body.dark .project-card { background:var(--surface); }
   }
   .hero-visual .floating-mini { left: 10px; top: 10px; }
 }
+
+
+/* Hero header alignment fix: grouped identity row and controlled rhythm. */
+.hero-copy .hero-intro-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 17px;
+}
+.hero-copy .hero-intro-row .hero-brand-signature {
+  display: inline-flex;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  vertical-align: middle;
+}
+.hero-copy .hero-intro-row .availability {
+  display: inline-flex;
+  min-height: 44px;
+  max-width: min(100%, 500px);
+  margin: 0;
+  padding: 10px 16px;
+  align-items: center;
+  gap: 11px;
+  line-height: 1.4;
+  white-space: normal;
+}
+.hero-copy .hero-intro-row .availability i {
+  flex: 0 0 8px;
+  display: block;
+}
+.hero-copy > .kicker {
+  margin: 0 0 10px;
+  line-height: 1.45;
+}
+.hero-copy > .hero-overline {
+  margin: 0 0 15px;
+  line-height: 1.55;
+  column-gap: 10px;
+  row-gap: 5px;
+}
+@media (max-width: 760px) {
+  .hero-copy .hero-intro-row { gap: 9px; margin-bottom: 14px; }
+  .hero-copy .hero-intro-row .hero-brand-signature {
+    flex-basis: 37px;
+    width: 37px;
+    height: 37px;
+  }
+  .hero-copy .hero-intro-row .availability {
+    flex: 1 1 230px;
+    min-height: 37px;
+    padding: 9px 11px;
+    font-size: 10px;
+  }
+  .hero-copy > .kicker { margin-bottom: 8px; }
+  .hero-copy > .hero-overline {
+    margin-bottom: 12px;
+    letter-spacing: 1.2px;
+    font-size: 9px;
+  }
+}
+@media (max-width: 390px) {
+  .hero-copy .hero-intro-row .availability { flex-basis: 100%; }
+}
