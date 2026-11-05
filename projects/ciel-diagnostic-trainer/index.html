@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="CIEL Diagnostic Trainer : entraînement pédagogique au diagnostic informatique et réseau.">
+<title>CIEL Diagnostic Trainer — Mehdi Hmaiss</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#eaf3ff;background:#081426;--accent:#66dfcf}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 85% 0%,#123b53,transparent 42%),#081426}
+a{color:#a8fff0}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #ffdf8c;outline-offset:4px}
+.wrap{width:min(1060px,calc(100% - 36px));margin:auto}header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:30px 0}
+.brand{font-size:.84rem;font-weight:800;letter-spacing:.11em;color:var(--accent)}.back{font-size:.9rem;text-decoration:none}
+.hero{padding:58px 0 35px}.eyebrow{color:var(--accent);font-size:.77rem;letter-spacing:.18em;font-weight:800}
+h1{font-size:clamp(2.3rem,6vw,4.6rem);line-height:1.05;letter-spacing:-.055em;margin:15px 0;max-width:800px}
+.sub{color:#b7c9dc;max-width:680px;line-height:1.75;font-size:1.08rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.stat{padding:11px 16px;border:1px solid #315064;border-radius:12px;background:#10253a}
+.stat strong{color:#fff}.stat span{color:#9cb6cd;margin-left:8px}
+main{padding-bottom:55px}.panel{border:1px solid #2d4c63;border-radius:23px;background:linear-gradient(160deg,#122940,#0d1d31);box-shadow:0 24px 70px #01081355;padding:clamp(22px,4vw,38px);min-height:360px}
+.progress{height:7px;border-radius:99px;background:#294459;overflow:hidden;margin-bottom:30px}.progress span{display:block;background:linear-gradient(90deg,var(--accent),#7d9eff);height:100%;width:0%;transition:width .25s}
+.counter{font-size:.82rem;color:#a8e9e0;font-weight:700;letter-spacing:.08em}.topic{font-size:.85rem;color:#9bb8ce;margin:7px 0}
+h2{font-size:clamp(1.5rem,3.5vw,2.15rem);margin:15px 0 24px;line-height:1.3}
+.choices{display:grid;gap:12px}.choice{text-align:left;width:100%;background:#18344d;color:#edf5ff;border:1px solid #36576f;border-radius:13px;padding:15px 18px;transition:background .15s,border-color .15s}
+.choice:hover:not(:disabled){background:#224760;border-color:#68decf}.choice:disabled{cursor:default;opacity:.78}.choice.good{border-color:#66dfcf;background:#15493f;opacity:1}.choice.bad{border-color:#efb0aa;background:#61373c;opacity:1}
+.feedback{margin:24px 0 10px;border-left:4px solid var(--accent);padding:13px 16px;background:#163c46;border-radius:0 12px 12px 0;line-height:1.65}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.primary,.outline{border-radius:12px;padding:12px 19px;font-weight:750}
+.primary{background:var(--accent);border:1px solid var(--accent);color:#08202b}.primary:disabled{opacity:.45;cursor:not-allowed}
+.outline{color:#dbedfc;border:1px solid #577489;background:transparent}
+footer{border-top:1px solid #254159;color:#9cb2c7;font-size:.85rem;padding:25px 0 35px;line-height:1.7}
+.result{font-size:2.2rem;font-weight:800;color:var(--accent)}.note{color:#b8cbdb}
+@media(max-width:600px){header{padding-top:18px}.hero{padding-top:30px}.panel{min-height:0}.stats{display:grid;grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="wrap"><div class="brand">MH / CIEL LAB</div><a class="back" href="../../index.html#projets">← Retour au portfolio</a></header>
+<section class="hero wrap">
+<p class="eyebrow">OUTIL PÉDAGOGIQUE · MAINTENANCE & RÉSEAUX</p>
+<h1>CIEL Diagnostic <span style="color:var(--accent)">Trainer.</span></h1>
+<p class="sub">Entraîne-toi à analyser des situations courantes en support informatique. Choisis le bon diagnostic, découvre l'explication et progresse à ton rythme. Aucun compte ni donnée personnelle.</p>
+<div class="stats"><div class="stat"><strong id="score">0</strong><span>bonnes réponses</span></div><div class="stat"><strong id="step-stat">1 / 6</strong><span>situations</span></div><div class="stat"><strong>100 %</strong><span>hors ligne</span></div></div>
+</section>
+<main class="wrap"><div class="panel"><div class="progress" aria-label="Progression"><span id="progress"></span></div><section id="exercise" aria-live="polite">
+<p id="counter" class="counter"></p><p id="topic" class="topic"></p><h2 id="question"></h2><div id="choices" class="choices"></div>
+<div id="feedback" class="feedback" role="status" hidden></div>
+<div class="actions"><button type="button" class="primary" id="next" disabled>Question suivante →</button><button type="button" class="outline" id="restart">Recommencer</button></div>
+</section><section id="end" hidden><p class="eyebrow">PARCOURS TERMINÉ</p><h2>Exercice terminé.</h2><p id="result" class="result"></p><p class="note">Ce résultat est un entraînement, pas une certification. Revois les explications et essaie de nouveau.</p><button class="primary" id="playagain" type="button">Rejouer les 6 situations</button></section></div></main>
+<footer><div class="wrap">Créé pour apprendre · Projet personnel pédagogique avec assistance IA · Les situations sont fictives et ne remplacent pas une procédure de maintenance supervisée.</div></footer>
+<script>
+"use strict";
+const cases=[
+{topic:"STOCKAGE / DÉMARRAGE",question:"Le diagnostic matériel confirme que le SSD est détecté, mais Windows affiche « No bootable devices found ». Quelle est la meilleure conclusion ?",choices:["Le SSD est forcément hors service.","Le support est détecté, mais le système de démarrage reste à vérifier.","Il faut changer l'écran."],answer:1,why:"Un test matériel réussi ne prouve pas qu'un système d'exploitation ou un chargeur d'amorçage est accessible. Vérifier la configuration de démarrage et le support avec l'encadrant."},
+{topic:"AFFICHAGE",question:"Un écran affiche le logo du fabricant puis devient noir. Quelle démarche est la plus pertinente ?",choices:["Conclure immédiatement que le PC entier est irréparable.","Comparer la source vidéo, le câble et l'écran par des essais contrôlés.","Formater le disque sans vérification."],answer:1,why:"Isoler les éléments un par un permet de distinguer une panne d'écran, de câble, d'entrée vidéo ou de source. Ne pas annoncer une pièce défectueuse sans résultat."},
+{topic:"AUDIO",question:"Le son fonctionne sur le PC, mais pas sur les haut-parleurs externes et le système indique que la prise jack n'est pas connectée. Quelle piste tester en premier ?",choices:["Vérifier câble, branchement, sortie et alimentation des haut-parleurs.","Changer le processeur.","Réinstaller tout Windows immédiatement."],answer:0,why:"Le câble, la prise et la sortie sélectionnée sont des hypothèses pertinentes. Si elles n'ont pas été testées jusqu'au bout, la cause demeure non confirmée."},
+{topic:"RÉSEAU",question:"Un poste n'obtient plus de connexion Ethernet. Quelle observation simple aide le diagnostic ?",choices:["Observer les voyants du lien et vérifier le raccordement avec un technicien.","Modifier au hasard tous les paramètres réseau.","Supprimer les fichiers de l'utilisateur."],answer:0,why:"Les voyants, le câble et le port permettent de distinguer absence de liaison physique et problème de configuration. Toute intervention sur le réseau de l'établissement doit être autorisée."},
+{topic:"VIDÉOPROJECTION",question:"Un vidéoprojecteur présente un problème de zoom. Comment consigner correctement l'intervention ?",choices:["Écrire que l'objectif a été remplacé sans l'avoir vérifié.","Noter le symptôme, les essais effectués et les points encore à confirmer.","Ignorer les essais infructueux."],answer:1,why:"Un compte rendu fiable sépare les observations, les manipulations et la résolution. Il ne faut pas inventer de pièce remplacée."},
+{topic:"MÉTHODE",question:"Un équipement remarche après remplacement d'un câble défectueux. Que mentionner dans le rapport ?",choices:["Remplacement du câble et rétablissement du fonctionnement.","Remplacement de tous les composants.","Panne non résolue, sans préciser le test."],answer:0,why:"Le rapport doit décrire l'action et le résultat réellement constatés, sans inventer le type de câble s'il n'est pas connu."}
+];
+let index=0,points=0,answered=false;
+const $=id=>document.getElementById(id);
+function render(){
+ answered=false;const c=cases[index];
+ $("counter").textContent="SITUATION "+(index+1)+" / "+cases.length;
+ $("topic").textContent=c.topic;$("question").textContent=c.question;
+ $("score").textContent=String(points);$("step-stat").textContent=(index+1)+" / "+cases.length;
+ $("progress").style.width=(index/cases.length*100)+"%";
+ $("feedback").hidden=true;$("feedback").textContent="";
+ $("next").disabled=true;$("next").textContent=index===cases.length-1?"Voir mon résultat →":"Question suivante →";
+ $("choices").replaceChildren();
+ c.choices.forEach((label,choiceIndex)=>{const btn=document.createElement("button");btn.type="button";btn.className="choice";btn.textContent=String.fromCharCode(65+choiceIndex)+". "+label;btn.addEventListener("click",()=>choose(choiceIndex));$("choices").append(btn)});
+}
+function choose(choiceIndex){
+ if(answered)return;answered=true;const c=cases[index];
+ if(choiceIndex===c.answer)points++;
+ Array.from($("choices").children).forEach((b,i)=>{b.disabled=true;if(i===c.answer)b.classList.add("good");else if(i===choiceIndex)b.classList.add("bad")});
+ $("score").textContent=String(points);
+ $("feedback").hidden=false;$("feedback").textContent=(choiceIndex===c.answer?"Bonne réponse. ":"À revoir. ")+c.why;
+ $("next").disabled=false;
+}
+function finish(){
+ $("exercise").hidden=true;$("end").hidden=false;$("progress").style.width="100%";
+ $("result").textContent=points+" / "+cases.length+" bonnes réponses";
+}
+function reset(){index=0;points=0;$("end").hidden=true;$("exercise").hidden=false;render()}
+$("next").addEventListener("click",()=>{if(!answered)return;if(index===cases.length-1)finish();else{index++;render()}});
+$("restart").addEventListener("click",reset);$("playagain").addEventListener("click",reset);render();
+</script>
+</body></html>
